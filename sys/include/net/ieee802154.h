@@ -124,7 +124,7 @@ enum {
 };
 
 /**
- * @brief   Special address defintions
+ * @brief   Special address definitions
  * @{
  */
 /**
