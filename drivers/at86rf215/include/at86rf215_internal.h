@@ -256,6 +256,21 @@ int at86rf215_FSK_set_mod_order(at86rf215_t *dev, uint8_t mod_order);
  */
 uint8_t at86rf215_FSK_get_mod_order(at86rf215_t *dev);
 
+/**
+ * @brief   The FSK premable length needs to be switched between RX and TX
+ *          This function takes care of putting FSK into RX mode.
+ *
+ * @param[in] dev       device that is entering RX mode
+ */
+void at86rf215_FSK_prepare_rx(at86rf215_t *dev);
+
+/**
+ * @brief   The FSK premable length needs to be switched between RX and TX
+ *          This function takes care of putting FSK into TX mode.
+ *
+ * @param[in] dev       device that is entering TX mode
+ */
+void at86rf215_FSK_prepare_tx(at86rf215_t *dev);
 /** @} */
 
 /**
