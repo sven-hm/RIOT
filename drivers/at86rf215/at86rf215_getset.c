@@ -167,7 +167,7 @@ void at86rf215_enable_rpc(at86rf215_t *dev)
         return;
     }
 
-    /* no Reduced Power mode availiable for OFDM */
+    /* no Reduced Power mode available for OFDM */
     switch (at86rf215_get_phy_mode(dev)) {
     case IEEE802154_PHY_FSK:
         at86rf215_reg_or(dev, dev->BBC->RG_FSKRPC, FSKRPC_EN_MASK);
@@ -184,7 +184,7 @@ void at86rf215_disable_rpc(at86rf215_t *dev)
         return;
     }
 
-    /* no Reduced Power mode availiable for OFDM */
+    /* no Reduced Power mode available for OFDM */
     switch (at86rf215_get_phy_mode(dev)) {
     case IEEE802154_PHY_FSK:
         at86rf215_reg_and(dev, dev->BBC->RG_FSKRPC, ~FSKRPC_EN_MASK);

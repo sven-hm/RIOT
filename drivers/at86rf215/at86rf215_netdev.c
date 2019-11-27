@@ -883,8 +883,8 @@ static void _isr(netdev_t *netdev)
     }
 
     /* exit early if the interrupt was not for this interface */
-    if (!((bb_irq_mask & bb_irqs_enabled) |
-          (rf_irq_mask & (RF_IRQ_EDC | RF_IRQ_TRXRDY)) | ack_timeout)) {
+    if (!((bb_irq_mask & bb_irqs_enabled) ||
+          (rf_irq_mask & (RF_IRQ_EDC | RF_IRQ_TRXRDY)) || ack_timeout)) {
         return;
     }
 
@@ -1030,7 +1030,7 @@ static void _isr(netdev_t *netdev)
         break;
 
     case AT86RF215_STATE_TX_WAIT_ACK:
-        if (!((bb_irq_mask & BB_IRQ_RXFE) | ack_timeout)) {
+        if (!((bb_irq_mask & BB_IRQ_RXFE) || ack_timeout)) {
             DEBUG("TX_WAIT_ACK: only RXFE or timeout expected (%x)\n", bb_irq_mask);
             break;
         }
