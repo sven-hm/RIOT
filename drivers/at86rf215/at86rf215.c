@@ -280,6 +280,8 @@ int at86rf215_tx_exec(at86rf215_t *dev)
 
     if (dev->state == AT86RF215_STATE_IDLE) {
         at86rf215_rf_cmd(dev, CMD_RF_TXPREP);
+    } else {
+        DEBUG("[at86rf215] will TX after %s\n", at86rf215_sw_state2a(dev->state));
     }
 
     return 0;
