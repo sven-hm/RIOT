@@ -1,0 +1,7 @@
+RIOT-2019.10 - Merge Notes
+==========================
+
+ - based on 2020.01-devel-1144-g9eac4b8b7
+ - merged benpicco/EEPROM-m95m01
+ - merged benpicco/openocd-raspi
+ - merged benpicco/at86rf215
