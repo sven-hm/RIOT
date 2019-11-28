@@ -2,11 +2,14 @@ BOARD_INSUFFICIENT_MEMORY := \
     airfy-beacon \
     b-l072z-lrwan1 \
     blackpill \
+    blackpill-128kib \
     bluepill \
+    bluepill-128kib \
     calliope-mini \
     cc2650-launchpad \
     cc2650stk \
     hifive1 \
+    hifive1b \
     i-nucleo-lrwan1 \
     lsn50 \
     maple-mini \
@@ -27,6 +30,7 @@ BOARD_INSUFFICIENT_MEMORY := \
     nucleo-l073rz \
     opencm904 \
     saml10-xpro \
+    saml11-xpro \
     spark-core \
     stm32f0discovery \
     stm32f030f4-demo \
