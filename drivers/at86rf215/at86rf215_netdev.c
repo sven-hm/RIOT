@@ -310,9 +310,9 @@ static int _get(netdev_t *netdev, netopt_t opt, void *val, size_t max_len)
                 return -EOVERFLOW;
             }
             if (dev->mode == AT86RF215_MODE_LEGACY_OQPSK) {
-                *((uint16_t *)val) = IEEE802154_FRAME_LEN_MAX;
+                *((uint16_t *)val) = IEEE802154_FRAME_LEN_MAX - (IEEE802154_MAX_HDR_LEN + IEEE802154_FCS_LEN);
             } else {
-                *((uint16_t *)val) = AT86RF215_MAX_PKT_LENGTH;
+                *((uint16_t *)val) = AT86RF215_MAX_PKT_LENGTH - (IEEE802154_MAX_HDR_LEN + IEEE802154_FCS_LEN);
             }
             return sizeof(uint16_t);
 
