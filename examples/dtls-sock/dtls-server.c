@@ -40,7 +40,7 @@ char _dtls_server_stack[THREAD_STACKSIZE_MAIN +
 static kernel_pid_t _dtls_server_pid = KERNEL_PID_UNDEF;
 
 #ifdef DTLS_ECC
-static ecdsa_public_key_t other_pubkeys[] = {
+static const ecdsa_public_key_t other_pubkeys[] = {
     { .x = ecdsa_pub_key_x, .y = ecdsa_pub_key_y },
 };
 
@@ -54,7 +54,7 @@ static const credman_credential_t credential = {
                 .x = ecdsa_pub_key_x,
                 .y = ecdsa_pub_key_y,
             },
-            .client_keys = other_pubkeys,
+            .client_keys = (ecdsa_public_key_t *)other_pubkeys,
             .client_keys_size = ARRAY_SIZE(other_pubkeys),
         },
     },
