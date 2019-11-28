@@ -42,10 +42,7 @@ CFLAGS += -DDTLS_PSK
 # TINYDTLS_LOG=3
 
 # FIXME: This is a temporary patch
-# TinyDTLS <= 0.8.6 requires around 426 bytes in RAM.
-CFLAGS += -DTHREAD_STACKSIZE_MAIN=\(3*THREAD_STACKSIZE_DEFAULT+512\)
-# TINYDTLS_EXTRA_BUFF can be used for increasing the server stack memory.
-CFLAGS += -DTINYDTLS_EXTRA_BUFF=\(512\)
+CFLAGS += -DTHREAD_STACKSIZE_MAIN=\(2*THREAD_STACKSIZE_LARGE\)
 
 # Comment this out to disable code in RIOT that does safety checking
 # which is not needed in a production environment but helps in the
