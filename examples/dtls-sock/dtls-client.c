@@ -117,13 +117,14 @@ static int client_send(char *addr_str, char *data, size_t datalen)
 
     res = credman_add(&credential);
     if (res < 0 && res != CREDMAN_EXIST) {
-        printf("Error cannot add credential to system: %d\n", (int)res);
+        /* ignore duplicate credentials */
+        printf("Error cannot add credential to system: %zd\n", res);
         return -1;
     }
 
     res = sock_dtls_session_create(&dtls_sock, &remote, &session);
     if (res < 0) {
-        printf("Error creating session: %d\n", (int)res);
+        printf("Error creating session: %zd\n", res);
         sock_dtls_close(&dtls_sock);
         sock_udp_close(&udp_sock);
         return -1;
