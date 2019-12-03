@@ -4,8 +4,9 @@
 APPLICATION = gcoap_example
 
 # If no BOARD is found in the environment, use this default:
-BOARD ?= native
-
+#BOARD ?= mlpa_tracker-v2
+#BOARD ?= nrf52dk
+BOARD ?= samr21-xpro
 # This has to be the absolute path to the RIOT base directory:
 RIOTBASE ?= $(CURDIR)/../..
 
@@ -25,23 +26,31 @@ CFLAGS += -DGCOAP_RESEND_BUFS_MAX=$(GCOAP_RESEND_BUFS_MAX)
 # NOTE: 6LoWPAN will be included if IEEE802.15.4 devices are present
 USEMODULE += gnrc_netdev_default
 USEMODULE += auto_init_gnrc_netif
+
+USEMODULE += gnrc_icmpv6_error
+USEMODULE += gnrc_ipv6_router_default
+
 # Specify the mandatory networking modules
 USEMODULE += gnrc_ipv6_default
 USEMODULE += gcoap
 # Additional networking modules that can be dropped if not needed
 USEMODULE += gnrc_icmpv6_echo
 
+#USEMODULE += netstats_l2
+#USEMODULE += netstats_ipv6
+#USEMODULE += netstats_rpl
+
 # DTLS configuration
 # Choose which DTLS stack to use
-# USEMODULE += tinydtls_sock_dtls
+USEMODULE += tinydtls_sock_dtls
 # USEMODULE += wolfssl_sock_dtls
 CFLAGS += -DDTLS_PSK
 # CFLAGS += -DDTLS_ECC
 # Uncomment to enable debug logs when using DTLS
-# CFLAGS += -DDTLS_DEBUG
+CFLAGS += -DDTLS_DEBUG
 # Payload size might be bigger when using DTLS, causing errors not present
 # when using plain CoAP. Uncomment the next line to fix this.
-# CFLAGS += -DGCOAP_PDU_BUF_SIZE=256
+CFLAGS += -DGCOAP_PDU_BUF_SIZE=256
 
 # Required by gcoap example
 USEMODULE += od
@@ -59,4 +68,13 @@ DEVELHELP ?= 1
 # Change this to 0 show compiler invocation lines by default:
 QUIET ?= 1
 
+GNRC_NETIF_NUMOF := 2
+
+#DEFAULT_CHANNEL ?= 26
+#CFLAGS += -DIEEE802154_DEFAULT_CHANNEL=$(DEFAULT_CHANNEL)
+#
+#CFLAGS += -DIEEE802154_DEFAULT_PANID=0x23
+
 include $(RIOTBASE)/Makefile.include
+
+include $(RIOTMAKE)/default-radio-settings.inc.mk
