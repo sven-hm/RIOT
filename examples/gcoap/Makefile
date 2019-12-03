@@ -33,7 +33,7 @@ USEMODULE += gnrc_icmpv6_echo
 
 # DTLS configuration
 # Choose which DTLS stack to use
-# USEMODULE += tinydtls_sock_dtls
+USEMODULE += tinydtls_sock_dtls
 # USEMODULE += wolfssl_sock_dtls
 CFLAGS += -DDTLS_PSK
 # CFLAGS += -DDTLS_ECC

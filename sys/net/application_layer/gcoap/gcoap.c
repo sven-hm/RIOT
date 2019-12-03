@@ -107,7 +107,6 @@ static kernel_pid_t _pid = KERNEL_PID_UNDEF;
 static char _msg_stack[GCOAP_STACK_SIZE];
 static msg_t _msg_queue[GCOAP_MSG_QUEUE_SIZE];
 static uint8_t _listen_buf[GCOAP_PDU_BUF_SIZE];
-static sock_udp_t _sock;
 
 /* Use _tl_sock as the common name for the top-level sock object for either
  * DTLS or non-DTLS context. _udp_sock is just a synonym for it in non-DTLS case.
