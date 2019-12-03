@@ -382,7 +382,7 @@ void auto_init(void)
     extern void auto_init_bmp180(void);
     auto_init_bmp180();
 #endif
-#if defined(MODULE_BME280) || defined(MODULE_BMP280)
+#ifdef MODULE_BMX280
     extern void auto_init_bmx280(void);
     auto_init_bmx280();
 #endif
@@ -422,10 +422,14 @@ void auto_init(void)
     extern void auto_init_hts221(void);
     auto_init_hts221();
 #endif
+#ifdef MODULE_INA2XX
+    extern void auto_init_ina2xx(void);
+    auto_init_ina2xx();
+#endif
 #ifdef MODULE_INA3221
     extern void auto_init_ina3221(void);
     auto_init_ina3221();
- #endif
+#endif
 #ifdef MODULE_IO1_XPLAINED
     extern void auto_init_io1_xplained(void);
     auto_init_io1_xplained();
@@ -509,6 +513,10 @@ void auto_init(void)
 #ifdef MODULE_PULSE_COUNTER
     extern void auto_init_pulse_counter(void);
     auto_init_pulse_counter();
+#endif
+#ifdef MODULE_QMC5883L
+    extern void auto_init_qmc5883l(void);
+    auto_init_qmc5883l();
 #endif
 #ifdef MODULE_SHT2X
     extern void auto_init_sht2x(void);

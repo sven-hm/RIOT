@@ -504,6 +504,7 @@ typedef struct {
 #endif
 } spi_conf_t;
 
+#ifndef DOXYGEN
 /**
  * @brief   Default mapping of I2C bus speed values
  * @{
@@ -523,6 +524,7 @@ typedef enum {
 #endif
 } i2c_speed_t;
 /** @} */
+#endif /* ndef DOXYGEN */
 
 /**
  * @brief   Structure for I2C configuration data
@@ -661,7 +663,7 @@ void dma_init(void);
  * @param[in]  mode    DMA mode
  * @param[in]  flags   DMA configuration
  *
- * @return < 0 on error, the number of transfered bytes otherwise
+ * @return < 0 on error, the number of transferred bytes otherwise
  */
 int dma_transfer(dma_t dma, int chan, const volatile void *src, volatile void *dst, size_t len,
                  dma_mode_t mode, uint8_t flags);

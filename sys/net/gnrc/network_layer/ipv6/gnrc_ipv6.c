@@ -490,7 +490,7 @@ static void _send_unicast(gnrc_pktsnip_t *pkt, bool prep_hdr,
     if (gnrc_ipv6_nib_get_next_hop_l2addr(&ipv6_hdr->dst, netif, pkt,
                                           &nce) < 0) {
         /* packet is released by NIB */
-        DEBUG("ipv6: no link-layer address or interface for next hop to %s",
+        DEBUG("ipv6: no link-layer address or interface for next hop to %s\n",
               ipv6_addr_to_str(addr_str, &ipv6_hdr->dst, sizeof(addr_str)));
         return;
     }
@@ -830,7 +830,7 @@ static void _receive(gnrc_pktsnip_t *pkt)
           first_nh, byteorder_ntohs(hdr->len));
 
     if ((pkt = gnrc_ipv6_ext_process_hopopt(pkt, &first_nh)) == NULL) {
-        DEBUG("ipv6: packet's extension header was errorneous or packet was "
+        DEBUG("ipv6: packet's extension header was erroneous or packet was "
               "consumed due to it\n");
         return;
     }

@@ -83,8 +83,6 @@ static void _send(const hd44780_t *dev, uint8_t value, hd44780_state_t state)
         _write_bits(dev, 4, value>>4);
         _write_bits(dev, 4, value);
     }
-
-    xtimer_usleep(HD44780_PULSE_WAIT_SHORT);
 }
 
 static void _write_bits(const hd44780_t *dev, uint8_t bits, uint8_t value)
@@ -110,19 +108,13 @@ int hd44780_init(hd44780_t *dev, const hd44780_params_t *params)
         LOG_ERROR("hd44780_init: invalid LCD size!\n");
         return -1;
     }
-    uint8_t count_pins = 0;
-    /* check which pins are used */
-    for (unsigned i = 0; i < HD44780_MAX_PINS; ++i) {
-        if (dev->p.data[i] != GPIO_UNDEF) {
-            ++count_pins;
-        }
-    }
+    dev->flag = 0;
     /* set mode depending on configured pins */
-    if (count_pins < HD44780_MAX_PINS) {
-        dev->flag |= HD44780_4BITMODE;
+    if (dev->p.data[4] != GPIO_UNDEF) {
+        dev->flag |= HD44780_8BITMODE;
     }
     else {
-        dev->flag |= HD44780_8BITMODE;
+        dev->flag |= HD44780_4BITMODE;
     }
     /* set flag for 1 or 2 row mode, 4 rows are 2 rows split half */
     if (dev->p.rows > 1) {

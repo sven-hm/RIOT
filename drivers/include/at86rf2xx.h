@@ -158,7 +158,7 @@ extern "C" {
  * manual recommends to disable this feature for RSSI measurements or random number
  * generation (Section 8.4 and Section 11.2).
  */
-#ifdef MODULE_AT86RF233
+#if defined(MODULE_AT86RF233) || defined(MODULE_AT86RFR2)
 #ifndef AT86RF2XX_SMART_IDLE_LISTENING
 #define AT86RF2XX_SMART_IDLE_LISTENING     (1)
 #endif
@@ -282,11 +282,12 @@ void at86rf2xx_reset(at86rf2xx_t *dev);
 /**
  * @brief   Get the short address of the given device
  *
- * @param[in] dev           device to read from
+ * @param[in]   dev         device to read from
+ * @param[out]  addr        the short address will be stored here
  *
  * @return                  the currently set (2-byte) short address
  */
-uint16_t at86rf2xx_get_addr_short(const at86rf2xx_t *dev);
+void at86rf2xx_get_addr_short(const at86rf2xx_t *dev, network_uint16_t *addr);
 
 /**
  * @brief   Set the short address of the given device
@@ -294,16 +295,17 @@ uint16_t at86rf2xx_get_addr_short(const at86rf2xx_t *dev);
  * @param[in,out] dev       device to write to
  * @param[in] addr          (2-byte) short address to set
  */
-void at86rf2xx_set_addr_short(at86rf2xx_t *dev, uint16_t addr);
+void at86rf2xx_set_addr_short(at86rf2xx_t *dev, const network_uint16_t *addr);
 
 /**
  * @brief   Get the configured long address of the given device
  *
- * @param[in] dev           device to read from
+ * @param[in]   dev         device to read from
+ * @param[out]  addr        the long address will be stored here
  *
  * @return                  the currently set (8-byte) long address
  */
-uint64_t at86rf2xx_get_addr_long(const at86rf2xx_t *dev);
+void at86rf2xx_get_addr_long(const at86rf2xx_t *dev, eui64_t *addr);
 
 /**
  * @brief   Set the long address of the given device
@@ -311,7 +313,7 @@ uint64_t at86rf2xx_get_addr_long(const at86rf2xx_t *dev);
  * @param[in,out] dev       device to write to
  * @param[in] addr          (8-byte) long address to set
  */
-void at86rf2xx_set_addr_long(at86rf2xx_t *dev, uint64_t addr);
+void at86rf2xx_set_addr_long(at86rf2xx_t *dev, const eui64_t *addr);
 
 /**
  * @brief   Get the configured channel number of the given device

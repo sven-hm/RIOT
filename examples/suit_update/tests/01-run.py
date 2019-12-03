@@ -10,6 +10,7 @@ import os
 import subprocess
 import sys
 import tempfile
+import time
 
 from testrunner import run
 
@@ -65,13 +66,14 @@ def publish(server_dir, server_url, app_ver, latest_name=None):
 
 
 def wait_for_update(child):
-        return child.expect([r"riotboot_flashwrite: processing bytes (\d+)-(\d+)",
-                             "riotboot_flashwrite: riotboot flashing "
-                             "completed successfully"],
-                            timeout=UPDATING_TIMEOUT)
+    return child.expect([r"riotboot_flashwrite: processing bytes (\d+)-(\d+)",
+                         "riotboot_flashwrite: riotboot flashing "
+                         "completed successfully"],
+                        timeout=UPDATING_TIMEOUT)
 
 
 def get_ipv6_addr(child):
+    child.sendline('ifconfig')
     if USE_ETHOS == 0:
         # Get device global address
         child.expect(
@@ -121,13 +123,16 @@ def testfunc(child):
     current_app_ver = int(child.match.group("app_ver"), 16)
 
     for version in [current_app_ver + 1, current_app_ver + 2]:
+        child.expect_exact("suit_coap: started.")
+        child.expect_exact("Starting the shell")
+        # give some time for the network interface to be configured
+        time.sleep(1)
         # Get address, if using ethos it will change on each reboot
         client_addr = get_ipv6_addr(child)
         client = "[{}]".format(client_addr)
         # Wait for suit_coap thread to start
         # Ping6
         ping6(client_addr)
-        child.expect_exact("suit_coap: started.")
         # Trigger update process, verify it validates manifest correctly
         publish(TMPDIR.name, COAP_HOST, version)
         notify(COAP_HOST, client, version)

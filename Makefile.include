@@ -311,13 +311,6 @@ include $(RIOTBOARD)/$(BOARD)/Makefile.include
 INCLUDES += -I$(RIOTCPU)/$(CPU)/include
 include $(RIOTCPU)/$(CPU)/Makefile.include
 
-# Sanity check
-# The check is only done after 'include $(RIOTBOARD)/$(BOARD)/Makefile.include'
-# because we need to have the 'CPU' variable defined
-ifeq (,$(filter $(RIOTCPU)/$(CPU)/Makefile.features,$(MAKEFILE_LIST)))
-  $(error $$(RIOTCPU)/$$(CPU)/Makefile.features must have been included by the board / board common Makefile.features or Makefile.features)
-endif
-
 # Assume GCC/GNU as supported toolchain if CPU's Makefile.include doesn't
 # provide this macro
 TOOLCHAINS_SUPPORTED ?= gnu
@@ -519,7 +512,8 @@ $(ELFFILE): $(BASELIBS)
 	$(Q)$(_LINK) -o $@
 
 $(BINDIR)/$(APPLICATION_MODULE).a: pkg-build $(BUILDDEPS)
-	$(Q)DIRS="$(DIRS)" "$(MAKE)" -C $(APPDIR) -f $(RIOTMAKE)/application.inc.mk
+	$(Q)DIRS="$(DIRS)" APPLICATION_BLOBS="$(BLOBS)" \
+	  "$(MAKE)" -C $(APPDIR) -f $(RIOTMAKE)/application.inc.mk
 $(BINDIR)/$(APPLICATION_MODULE).a: FORCE
 
 # Other modules are built by application.inc.mk and packages building
@@ -665,7 +659,7 @@ term: $(TERMDEPS)
 	$(TERMPROG) $(TERMFLAGS)
 
 # Term without the pyterm added logging
-# TERMFLAGS must be exported for `jlink.sh term_rtt`.
+# PYTERMFLAGS must be exported for `jlink.sh term-rtt`.
 cleanterm: export PYTERMFLAGS += --noprefix --no-repeat-command-on-empty-line
 cleanterm: $(TERMDEPS)
 	$(call check_cmd,$(TERMPROG),Terminal program)

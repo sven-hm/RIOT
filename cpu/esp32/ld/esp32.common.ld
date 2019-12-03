@@ -85,7 +85,7 @@ SECTIONS
 
   .iram0.text :
   {
-    /* Code marked as runnning out of IRAM */
+    /* Code marked as running out of IRAM */
     _iram_text_start = ABSOLUTE(.);
     *(.iram1 .iram1.*)
 
@@ -107,6 +107,7 @@ SECTIONS
     /* part of RIOT ports that should run in IRAM */
     *cpu.a:*(.literal .text .literal.* .text.*)
     *periph.a:*(.literal .text .literal.* .text.*)
+    *mtd.a:**(.literal .text .literal.* .text.*)
 
     INCLUDE esp32.spiram.rom-functions-iram.ld
     _iram_text_end = ABSOLUTE(.);

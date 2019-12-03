@@ -58,6 +58,9 @@ endif
 ifneq (,$(filter gnrc_pktbuf_malloc,$(USEMODULE)))
     DIRS += pktbuf_malloc
 endif
+ifneq (,$(filter gnrc_lorawan,$(USEMODULE)))
+    DIRS += link_layer/lorawan
+endif
 ifneq (,$(filter gnrc_gomach,$(USEMODULE)))
     DIRS += link_layer/gomach
 endif
@@ -90,6 +93,9 @@ ifneq (,$(filter gnrc_sixlowpan_ctx,$(USEMODULE)))
 endif
 ifneq (,$(filter gnrc_sixlowpan_frag,$(USEMODULE)))
   DIRS += network_layer/sixlowpan/frag
+endif
+ifneq (,$(filter gnrc_sixlowpan_frag_fb,$(USEMODULE)))
+  DIRS += network_layer/sixlowpan/frag/fb
 endif
 ifneq (,$(filter gnrc_sixlowpan_frag_rb,$(USEMODULE)))
   DIRS += network_layer/sixlowpan/frag/rb
