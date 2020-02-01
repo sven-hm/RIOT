@@ -1,0 +1,6 @@
+USEMODULE += boards_common_esp32
+
+# configure the serial interface
+PORT_LINUX ?= /dev/ttyUSB1
+
+include $(RIOTBOARD)/common/esp32/Makefile.include

@@ -1,0 +1,5 @@
+/**
+@defgroup    odroid-go
+@ingroup     boards_esp32
+@brief       Support for ODROID-GO Game Kit
+ */
